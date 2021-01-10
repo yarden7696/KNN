@@ -11,80 +11,77 @@ we worked together on this Submission assignment.
 OUR OUTPUT IS:
 
 KNN for HC Temperature : 
+p= 1
+
 k= 1
+True Error Average:  0.4572307692307692
+Empirical Error Average:  0.030923076923076925
 
-p= 1
-True Error Average:  0.45784615384615385
-Empirical Error Average:  0.025692307692307695
-
-p= 2
-True Error Average:  0.47646153846153844
-Empirical Error Average:  0.026923076923076925
-
-p= inf
-True Error Average:  0.4604615384615385
-Empirical Error Average:  0.030153846153846153
-_______________________________________________
 k= 3
+True Error Average:  0.4366153846153846
+Empirical Error Average:  0.22553846153846155
 
-p= 1
-True Error Average:  0.43769230769230766
-Empirical Error Average:  0.22753846153846155
-
-p= 2
-True Error Average:  0.44584615384615384
-Empirical Error Average:  0.22953846153846155
-
-p= inf
-True Error Average:  0.456
-Empirical Error Average:  0.2473846153846154
-_______________________________________________
 k= 5
+True Error Average:  0.4595384615384615
+Empirical Error Average:  0.2816923076923077
 
-p= 1
-True Error Average:  0.46276923076923077
-Empirical Error Average:  0.27753846153846157
-
-p= 2
-True Error Average:  0.45569230769230773
-Empirical Error Average:  0.28692307692307695
-
-p= inf
-True Error Average:  0.4793846153846154
-Empirical Error Average:  0.31215384615384617
-_______________________________________________
 k= 7
+True Error Average:  0.4775384615384615
+Empirical Error Average:  0.3089230769230769
 
-p= 1
-True Error Average:  0.4786153846153846
-Empirical Error Average:  0.3123076923076923
-
-p= 2
-True Error Average:  0.47261538461538466
-Empirical Error Average:  0.3143076923076923
-
-p= inf
-True Error Average:  0.47830769230769227
-Empirical Error Average:  0.3324615384615385
-_______________________________________________
 k= 9
-
-p= 1
-True Error Average:  0.47200000000000003
-Empirical Error Average:  0.3410769230769231
-
-p= 2
-True Error Average:  0.4766153846153846
-Empirical Error Average:  0.3475384615384616
-
-p= inf
-True Error Average:  0.4793846153846154
-Empirical Error Average:  0.35261538461538466
+True Error Average:  0.4736923076923077
+Empirical Error Average:  0.3395384615384615
 _______________________________________________
+p= 2
+
+k= 1
+True Error Average:  0.4584615384615385
+Empirical Error Average:  0.03
+
+k= 3
+True Error Average:  0.44753846153846155
+Empirical Error Average:  0.2409230769230769
+
+k= 5
+True Error Average:  0.4695384615384615
+Empirical Error Average:  0.2793846153846154
+
+k= 7
+True Error Average:  0.4706153846153846
+Empirical Error Average:  0.3153846153846154
+
+k= 9
+True Error Average:  0.4796923076923077
+Empirical Error Average:  0.3476923076923077
+_______________________________________________
+p= inf
+
+k= 1
+True Error Average:  0.4744615384615385
+Empirical Error Average:  0.02923076923076923
+
+k= 3
+True Error Average:  0.46
+Empirical Error Average:  0.23369230769230767
+
+k= 5
+True Error Average:  0.46692307692307694
+Empirical Error Average:  0.31076923076923074
+
+k= 7
+True Error Average:  0.46876923076923077
+Empirical Error Average:  0.3401538461538462
+
+k= 9
+True Error Average:  0.486
+Empirical Error Average:  0.35307692307692307
+_______________________________________________
+
 """
 
 """ Which parameters of k,p are the best?
-The best parameters for k and p are: k=3 ,p=1 with True Error 0.43769230769230766
+The best parameters for k and p are: k=3 ,p=1 with True Error  0.4366153846153846
 """
 
 """ Do you see overfitting? yes 
@@ -93,7 +90,11 @@ In addition - given a new point from the test set we will not know how to classi
 Its mean that the classification of the test points will be poor and will yield very low results relative to the train.
 We see this in HC_Body_Temperature result because for the points of the test- we got bad results that are not 
 close to the results of the train. 
+When k = 1, the overfitting is the largest between the True Error and the Empirical Error.
+As k increases the difference between the True Error and the Empirical Error decreases,
+but in our opinion it is still large and shows on overfitting.
 """
+
 
 def KNN_classified(train, point, k, p):
     distance=[]
@@ -149,9 +150,9 @@ def main():
     EROR_test,EROR_train=0,0
     print("KNN for HC Temperature : ")
     # evaluate the k-NN classifier
-    for k in range(1, 10, 2): # {1,3,5,7,9}
-        print("k=",k)
-        for p in P:  # {1,2,inf}
+    for p in P:  # {1,2,inf}
+        print("p=",p)
+        for k in range(1, 10, 2):  # {1,3,5,7,9}
             EROR_train=0
             EROR_test=0
             for i in range(100):
@@ -169,7 +170,7 @@ def main():
                     if KNN_classified(train, x, k, p) == 0:
                         EROR_train+=1
             print("")
-            print("p=",p)
+            print("k=",k)
             print("True Error Average: ", float(EROR_test)/65/100)
             print ("Empirical Error Average: ", float(EROR_train)/65/100)
         print("_______________________________________________")
